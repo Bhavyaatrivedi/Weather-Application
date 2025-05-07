@@ -1,18 +1,77 @@
-# Salesforce DX Project: Next Steps
+Weather Dashboard Application
+Overview
+The Weather Dashboard is a dynamic Salesforce Lightning Web Component (LWC) application that provides weather information for a specified city. The app fetches real-time weather data from the OpenWeather API and displays essential weather details including temperature, humidity, wind speed, and more. The user can input the city name and retrieve detailed weather information with a modern UI, featuring a modal for deeper insights.
 
-Now that you’ve created a Salesforce DX project, what’s next? Here are some documentation resources to get you started.
+This project demonstrates the use of Salesforce's HTTP REST callout to fetch weather data from an external API, allowing seamless integration of external weather services into Salesforce applications.
 
-## How Do You Plan to Deploy Your Changes?
+Features
+City Search: Enter any city's name to fetch the weather.
 
-Do you want to deploy a set of changes, or create a self-contained application? Choose a [development model](https://developer.salesforce.com/tools/vscode/en/user-guide/development-models).
+Basic Weather Info: Displays current temperature, weather description, and other key weather details.
 
-## Configure Your Salesforce DX Project
+Detailed Weather Info: Provides additional weather insights in a modal, including:
 
-The `sfdx-project.json` file contains useful configuration information for your project. See [Salesforce DX Project Configuration](https://developer.salesforce.com/docs/atlas.en-us.sfdx_dev.meta/sfdx_dev/sfdx_dev_ws_config.htm) in the _Salesforce DX Developer Guide_ for details about this file.
+Feels Like temperature
 
-## Read All About It
+Minimum and Maximum temperatures
 
-- [Salesforce Extensions Documentation](https://developer.salesforce.com/tools/vscode/)
-- [Salesforce CLI Setup Guide](https://developer.salesforce.com/docs/atlas.en-us.sfdx_setup.meta/sfdx_setup/sfdx_setup_intro.htm)
-- [Salesforce DX Developer Guide](https://developer.salesforce.com/docs/atlas.en-us.sfdx_dev.meta/sfdx_dev/sfdx_dev_intro.htm)
-- [Salesforce CLI Command Reference](https://developer.salesforce.com/docs/atlas.en-us.sfdx_cli_reference.meta/sfdx_cli_reference/cli_reference.htm)
+Wind Speed
+
+Pressure
+
+Humidity
+
+Visibility
+
+Weather Icon: Displays a weather icon alongside the weather details.
+
+Responsive UI: Dynamic background based on the current weather.
+
+Architecture
+Salesforce Apex Class:
+
+The WeatherService class makes an external callout to the OpenWeather API to fetch weather data for a specified city.
+
+The weather data includes key parameters like temperature, pressure, wind speed, and weather description.
+
+Lightning Web Component (LWC):
+
+Allows users to input a city name and retrieve weather information.
+
+Displays weather data in a responsive UI using Salesforce's Lightning Design System (SLDS).
+
+Modal functionality to display detailed weather information.
+
+HTTP REST Callout
+This project demonstrates the use of Salesforce’s HTTP REST callout to integrate with the OpenWeather API, providing real-time weather data. The WeatherService Apex class makes an HTTP GET request to the OpenWeather API, fetches the response, and parses the weather details to be displayed in the UI.
+
+Key Components:
+WeatherService (Apex Class): Fetches weather data from the OpenWeather API for the given city.
+
+WeatherDashboard (LWC): Interacts with the Apex class to display weather information on the UI, including a modal for detailed data.
+
+Modal for Detailed Information: Displays additional weather insights such as wind speed, humidity, pressure, and more.
+
+How to Set Up
+Set up the Apex Class:
+
+Create the WeatherService class in Salesforce Developer Console or your Salesforce IDE.
+
+Make sure to add your OpenWeather API key to the getWeather method.
+
+Create the LWC Component:
+
+Create the WeatherDashboard component with the provided code.
+
+Deploy it to your Salesforce org.
+
+Test the Application:
+
+Add the WeatherDashboard component to a Lightning Page or App.
+
+Test by entering a city name and fetching the weather data.
+
+
+License
+This project is licensed under the MIT License - see the LICENSE file for details.
+
