@@ -1,0 +1,98 @@
+<template>
+    <lightning-card title="Weather Dashboard">
+        <div class="slds-m-around_medium">
+            <lightning-input label="Enter City" value={city} onchange={handleCityChange}></lightning-input>
+            <lightning-button label="Get Weather" onclick={fetchWeather} class="slds-m-top_small"></lightning-button>
+
+            <template if:true={weatherData}>
+                <div class="slds-m-top_medium">
+                    <!-- Basic weather info shown on the dashboard -->
+                    <p><strong>City:</strong> {weatherData.name}</p>
+                    <p><strong>Temperature:</strong> {weatherData.main.temp}°C</p>
+                    <p><strong>Weather:</strong> {description}</p>
+                    <!-- Button to trigger the modal -->
+                    <lightning-button label="View More" onclick={openModal}></lightning-button>
+                </div>
+            </template>
+
+            <!-- Modal for Detailed Weather Info -->
+            <template if:true={isModalOpen}>
+                <section role="dialog" tabindex="-1" class="slds-modal slds-fade-in-open">
+                    <div class="slds-modal__container">
+                        <!-- <header class="slds-modal__header"> -->
+                        <header class="slds-modal__header slds-p-vertical_small" style="padding-top: 0.5rem; padding-bottom: 0.5rem;">
+
+                            <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse" onclick={closeModal}>
+                                <lightning-icon icon-name="utility:close" size="small" alternative-text="close" class="slds-button__icon slds-button__icon_large"></lightning-icon>
+                                <span class="slds-assistive-text">Close</span>
+                            </button>
+                            <h2 class="slds-text-heading_medium">Detailed Weather Information</h2>
+                        </header>
+                        <div class="slds-modal__content slds-p-around_medium" style={modalBackgroundStyle}>
+                            <div class="slds-grid slds-wrap slds-gutters slds-p-around_medium">
+                                <!-- <lightning-input label="Temperature (°C)" value={weatherData.main.temp} readonly class="slds-col slds-size_1-of-2"></lightning-input> -->
+
+                                <div class="custom-input slds-col slds-size_1-of-2 slds-m-bottom_medium">
+                                    <label for="feelsLike" class="custom-label">Feels Like (°C)</label>
+                                    <input type="text" id="feelsLike" value={weatherData.main.feels_like} readonly class="custom-textbox" />
+                                </div>
+                                
+                                <div class="custom-input slds-col slds-size_1-of-2">
+                                    <label for="tempMin" class="custom-label">Min Temperature (°C)</label>
+                                    <input type="text" id="tempMin" value={weatherData.main.temp_min} readonly class="custom-textbox" />
+                                </div>
+                                
+                                <div class="custom-input slds-col slds-size_1-of-2 slds-m-bottom_large">
+                                    <label for="tempMax" class="custom-label">Max Temperature (°C)</label>
+                                    <input type="text" id="tempMax" value={weatherData.main.temp_max} readonly class="custom-textbox" />
+                                </div>
+                                
+                                <div class="custom-input slds-col slds-size_1-of-2">
+                                    <label for="humidity" class="custom-label">Humidity (%)</label>
+                                    <input type="text" id="humidity" value={weatherData.main.humidity} readonly class="custom-textbox" />
+                                </div>
+                                
+                                <div class="custom-input slds-col slds-size_1-of-2 slds-m-bottom_medium">
+                                    <label for="windSpeed" class="custom-label">Wind Speed (m/s)</label>
+                                    <input type="text" id="windSpeed" value={weatherData.wind.speed} readonly class="custom-textbox" />
+                                </div>
+                                
+                                <div class="custom-input slds-col slds-size_1-of-2 slds-m-bottom_medium">
+                                    <label for="visibility" class="custom-label">Visibility (meters)</label>
+                                    <input type="text" id="visibility" value={weatherData.visibility} readonly class="custom-textbox" />
+                                </div>
+                                
+                                <div class="custom-input slds-col slds-size_1-of-2">
+                                    <label for="weatherDesc" class="custom-label">Weather Description</label>
+                                    <input type="text" id="weatherDesc" value={description} readonly class="custom-textbox" />
+                                </div>
+
+                                <div class="custom-input slds-col slds-size_1-of-2">
+                                    <label for="pressure" class="custom-label">Pressure (hPa)</label>
+                                    <input type="text" id="pressure" value={weatherData.main.pressure} readonly class="custom-textbox" />
+                                </div>
+                                
+                                <div class="slds-col slds-size_1-of-1 slds-text-align_center slds-m-top_medium">
+                                    <img src={weatherIconUrl} alt="Weather icon" />
+                                </div>
+
+                         
+                                
+                            </div>
+                            
+                        </div>
+                        <footer class="slds-modal__footer slds-p-vertical_small" style="padding-top: 0.5rem; padding-bottom: 0.5rem;">
+
+                            <lightning-button variant="neutral" label="Close" onclick={closeModal}></lightning-button>
+                        </footer>
+                    </div>
+                </section>
+                <div class="slds-backdrop slds-backdrop_open"></div>
+            </template>
+
+            <template if:true={error}>
+                <p class="slds-text-color_error slds-m-top_medium">{error}</p>
+            </template>
+        </div>
+    </lightning-card>
+</template>
